@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BCS22090022.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="BCS22090022.MainPage"
+             x:DataType="vm:MainViewModel"
+             Title="Question 2">
+    <!--<ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green" />
+        </Style>
+    </ContentPage.Resources>-->
+
+    <!-- Question 2 -->
+    <StackLayout Margin="40,0"
+                 VerticalOptions="CenterAndExpand">
+        <Entry x:Name="PhoneEntry"
+               Placeholder="Phone Number"
+               HorizontalTextAlignment="Center"
+               HorizontalOptions="FillAndExpand">
+            <Entry.Behaviors>
+                <toolkit:CharactersValidationBehavior 
+                    Flags="ValidateOnValueChanged"
+                    RegexPattern="^[0-9]+$"
+                    MinimumCharacterTypeCount="1"
+                    IsValid="True" />
+            </Entry.Behaviors>
+        </Entry>
+        <Label Text="Invalid Phone Number" TextColor="Red" IsVisible="False">
+            <Label.Triggers>
+                <DataTrigger TargetType="Label"
+                             Binding="{Binding Source={x:Reference PhoneEntry}, Path=Behaviors[0].IsValid}"
+                             Value="False">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+                <DataTrigger TargetType="Label"
+                             Binding="{Binding Source={x:Reference PhoneEntry}, Path=Behaviors[0].IsValid}"
+                             Value="True">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Label.Triggers>
+        </Label>
+
+
+        <Entry x:Name="PasswordEntry"
+               IsPassword="True"
+               Placeholder="Password"
+               HorizontalTextAlignment="Center"
+               HorizontalOptions="FillAndExpand">
+            <Entry.Behaviors>
+                <toolkit:CharactersValidationBehavior 
+                    Flags="ValidateOnValueChanged"
+                    MinimumCharacterTypeCount="5"
+                    IsValid="True" />
+            </Entry.Behaviors>
+        </Entry>
+
+        <Label Text="Password length should be greater than 5" TextColor="Red" IsVisible="False">
+            <Label.Triggers>
+                <DataTrigger TargetType="Label"
+                             Binding="{Binding Source={x:Reference PasswordEntry}, Path=Behaviors[0].IsValid}"
+                             Value="False">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+                <DataTrigger TargetType="Label"
+                             Binding="{Binding Source={x:Reference PasswordEntry}, Path=Behaviors[0].IsValid}"
+                             Value="True">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Label.Triggers>
+        </Label>
+
+
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+                     Margin="0,15">
+            <CheckBox
+                x:Name="TermsAndConditionsCheckbox"
+                HorizontalOptions="Start"/>
+            <Label x:Name="TermsAndConditionsLabel"
+                   Text="I have read the terms and conditions"
+                   TextColor="Black" FontSize="Small"
+                   HorizontalOptions="Start" Margin="5">
+            </Label>
+        </StackLayout>
+
+        <Button Text="Register" HorizontalOptions="FillAndExpand" IsEnabled="False" FontSize="Medium" CornerRadius="20"
+                VerticalOptions="EndAndExpand"
+                x:Name="RegisterButton">
+            <Button.Triggers>
+                <MultiTrigger TargetType="Button">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Source={x:Reference PhoneEntry}, Path=Behaviors[0].IsValid}" Value="True" />
+                        <BindingCondition Binding="{Binding Source={x:Reference PasswordEntry}, Path=Behaviors[0].IsValid}" Value="True" />
+                        <BindingCondition Binding="{Binding Source={x:Reference TermsAndConditionsCheckbox}, Path=IsChecked}" Value="True" />
+
+                    </MultiTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True" />
+                </MultiTrigger>
+            </Button.Triggers>
+        </Button>
+
+        <Button Text="Go To Question 3" Command="{Binding GoToQuestion3PageCommand}"/>
+        <Button Text="Go To Question 1" Command="{Binding GoToQuestion1PageCommand}"/>
+    </StackLayout>
+
+    <!--<Entry Placeholder="Type the secret!"
+               VerticalOptions="Center"
+               HorizontalOptions="Center">
+            <Entry.Triggers>
+                <MultiTrigger TargetType="Entry" >
+                    <MultiTrigger.Conditions>
+                        <PropertyCondition Property="Text" Value="The text color is green" />
+                        <BindingCondition Binding="{Binding Source={x:Reference checkSecret},
+                                                        Path=IsToggled}"
+                                          Value="true" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="TextColor"
+                            Value="Green" />
+                </MultiTrigger>
+            </Entry.Triggers>
+        </Entry>
+        <Label Text="Check the secret?"
+               VerticalOptions="Center"
+               HorizontalOptions="Center" />
+        <Switch x:Name="checkSecret"
+                VerticalOptions="Center"
+                HorizontalOptions="Center" />
+    -->
+
+    
+    <!--<ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Image
+                Source="dotnet_bot.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a race car number eight" />
+
+            <Label
+                Text="Hello, World!"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Label
+                Text="Welcome to &#10;.NET Multi-platform App UI"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
+
+            <Label Text="{Binding Count}"/>
+            <Button Text="{Binding Count}" Command="{Binding ClickCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>-->
+
+</ContentPage>

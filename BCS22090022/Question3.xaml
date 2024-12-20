@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BCS22090022.ViewModels"
+             xmlns:model="clr-namespace:BCS22090022.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="BCS22090022.Question3"
+             x:DataType="vm:Question3ViewModel"
+             
+             Title="Question3">
+    <ScrollView>
+
+        <VerticalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Button Text="Get Posts" Command="{Binding GetPostsCommand}"/>
+                <Button Text="Add" Command="{Binding AddPostCommand}"/>
+            </HorizontalStackLayout>
+           
+        <StackLayout IsVisible="{Binding IsAddPostAvailable}">
+            <Label Text="Title" />
+                <Entry Text="{Binding NewTitle}" Placeholder="Title"/>
+
+            <Label Text="Body" />
+            <Entry Text="{Binding NewBody}" Placeholder="Body"/>
+            <Button Text="SAVE" Command="{Binding SaveAddedPostCommand}"/>
+        </StackLayout>
+
+            <CollectionView ItemsSource="{Binding Posts}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Title}" 
+                                       FontAttributes="Bold" 
+                                       FontSize="Medium" 
+                                       TextColor="Black" />
+                                <Label Text="{Binding Body}" 
+                                       FontSize="Small" 
+                                       TextColor="Gray" 
+                                       LineBreakMode="WordWrap" >
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:Question3ViewModel}}, Path=DeletePostCommand}"
+                        CommandParameter="{Binding .}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        
+    </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage> 
+

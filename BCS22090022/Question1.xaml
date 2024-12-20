@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="using:BCS22090022.Converter"
+             x:Class="BCS22090022.Question1"
+             Title="Question 1">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:SliderValueConverter x:Key="TextConverter" />
+            <converter:SliderValueConverter x:Key="TextColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <Grid VerticalOptions="CenterAndExpand"
+              RowDefinitions="Auto,Auto,Auto"
+              ColumnDefinitions="Auto,*"
+              Margin="20">
+
+            <Label x:Name="label1" 
+                   Text="{Binding Source={x:Reference slider1}, Path=Value, StringFormat='F0', Mode=OneWay}"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   HorizontalOptions="CenterAndExpand" />
+
+            <Slider x:Name="slider1"
+                    Minimum="0"
+                    Maximum="100"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalOptions="FillAndExpand" />
+
+            <Label Text="{Binding Source={x:Reference slider1}, Path=Value, Converter={StaticResource TextConverter}, ConverterParameter=Text}"
+                   TextColor="{Binding Source={x:Reference slider1}, Path=Value, Converter={StaticResource TextColorConverter}, ConverterParameter=Color}"
+                   Grid.Row="1"
+                   Grid.ColumnSpan="2"
+                   HorizontalOptions="CenterAndExpand" />
+
+        </Grid>
+    </StackLayout>
+</ContentPage>
